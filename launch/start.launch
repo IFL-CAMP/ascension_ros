@@ -1,0 +1,11 @@
+<launch>
+    <arg name="product_id" default="drivebay2" />
+    <arg name="base_frame_id" default="base" />
+    
+    <node name="ascension_node" pkg="ascension" type="ascension_node" output="screen">
+        <param name="product_id" value="$(arg product_id)"/>
+        <param name="base_frame_id" value="$(arg base_frame_id)"/>
+        <rosparam param="target_frame_ids">["target1", "target2"]</rosparam>
+    </node>
+    
+</launch>

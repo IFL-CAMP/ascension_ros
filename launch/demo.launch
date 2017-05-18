@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find ascension)/launch/start.launch" />
+    
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ascension)/launch/demo.rviz" />
+</launch>
