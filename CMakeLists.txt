@@ -21,7 +21,7 @@ ExternalProject_Get_Property(act3dg source_dir)
 set(ATC3DG_INCLUDE_DIRS ${source_dir}/include)
 
 ExternalProject_Get_Property(act3dg binary_dir)
-set(ATC3DG_LIBRARY_DIRS ${binary_dir}/lib/)
+set(ATC3DG_LIBRARY_DIRS ${binary_dir})
 
 # find_library(ATC3DG_LIBRARY atclib ${ATC3DG_LIBRARY_DIRS})
 set(ATC3DG_LIBRARY "${ATC3DG_LIBRARY_DIRS}/libatclib.so")
