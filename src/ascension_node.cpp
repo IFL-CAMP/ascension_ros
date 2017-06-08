@@ -16,6 +16,8 @@ int main(int argc, char **argv)
 {    
     ros::init(argc, argv, "ascension_node");
     ros::NodeHandle nh("~");
+    ros::AsyncSpinner spinner(1);
+    spinner.start();
     
     // parse arguments
     
@@ -55,15 +57,17 @@ int main(int argc, char **argv)
     
     ros::Publisher pub = nh.advertise<geometry_msgs::TransformStamped>("target_poses", 10);
     tf::TransformBroadcaster br;
-    
+
+    ros::Rate rate(60);
+    tf::StampedTransform t;
     while (ros::ok())
     {
+        t.stamp_ = ros::Time::now();
         for(int i = 0; i < sensors_number; ++i) 
         {
             double dX, dY, dZ, dAzimuth, dElevation, dRoll;
             bird.getCoordinatesAngles(i, dX, dY, dZ, dAzimuth, dElevation, dRoll);
-            
-            tf::StampedTransform t;
+
             t.frame_id_ = base_frame_id;
             t.child_frame_id_ = target_frame_ids[i];
             t.setOrigin(tf::Vector3(dX/100, dY/100, dZ/100));
@@ -75,6 +79,8 @@ int main(int argc, char **argv)
             tf::transformStampedTFToMsg(t, msg);
             pub.publish(msg);            
         }
+
+        rate.sleep();
     }
     
     return 0;
