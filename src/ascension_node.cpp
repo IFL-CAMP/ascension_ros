@@ -26,6 +26,9 @@ int main(int argc, char **argv)
     
     std::string base_frame_id; 
     nh.param<std::string>("base_frame_id", base_frame_id, "base");
+
+    std::string root_frame_id;
+    nh.param<std::string>("root_frame_id", root_frame_id, "base");
     
     std::vector<std::string> target_frame_ids;
     nh.param< std::vector<std::string> >("target_frame_ids", target_frame_ids, std::vector<std::string>());
@@ -72,12 +75,24 @@ int main(int argc, char **argv)
             t.child_frame_id_ = target_frame_ids[i];
             t.setOrigin(tf::Vector3(dX/100, dY/100, dZ/100));
             t.setRotation(tf::createQuaternionFromRPY(deg2rad(dAzimuth), deg2rad(dElevation), deg2rad(dRoll)));
-            
-            br.sendTransform(t);
-            
-            geometry_msgs::TransformStamped msg;
-            tf::transformStampedTFToMsg(t, msg);
-            pub.publish(msg);            
+
+            if (root_frame_id == target_frame_ids[i]) {
+                t.frame_id_ = target_frame_ids[i];
+                t.child_frame_id_ = base_frame_id;
+                t.setData(t.inverse());
+                br.sendTransform(t);
+
+                geometry_msgs::TransformStamped msg;
+                tf::transformStampedTFToMsg(t, msg);
+                pub.publish(msg);
+            } else {
+                br.sendTransform(t);
+
+                geometry_msgs::TransformStamped msg;
+                tf::transformStampedTFToMsg(t, msg);
+                pub.publish(msg);
+            }
+
         }
 
         rate.sleep();

@@ -1,5 +1,13 @@
 <launch>
-    <include file="$(find ascension)/launch/start.launch" />
+    <arg name="product_id" default="drivebay2" />
+    <arg name="base_frame_id" default="base" />
+    <arg name="root_frame_id" default="base" />
+
+    <include file="$(find ascension)/launch/start.launch">
+        <arg name="product_id" value="$(arg product_id)" />
+        <arg name="base_frame_id" value="$(arg base_frame_id)" />
+        <arg name="root_frame_id" value="$(arg root_frame_id)" />
+    </include>
     
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ascension)/launch/demo.rviz" />
 </launch>
