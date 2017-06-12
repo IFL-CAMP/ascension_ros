@@ -52,6 +52,9 @@ int main(int argc, char **argv)
     int sensors_number = bird.getNumberOfSensors();
     ROS_INFO_STREAM("Detected " << sensors_number << " sensors");
     
+    for (int i = 0; i < sensors_number; i++)
+        bird.setSensorQuaternion(i);
+    
     ROS_INFO_STREAM("The following target IDs will be used:");
     for (int i = 0; i < sensors_number; i++)
         ROS_INFO_STREAM("Sensor " << i+1 << ": " << target_frame_ids[i]);
@@ -68,13 +71,13 @@ int main(int argc, char **argv)
         t.stamp_ = ros::Time::now();
         for(int i = 0; i < sensors_number; ++i) 
         {
-            double dX, dY, dZ, dAzimuth, dElevation, dRoll;
-            bird.getCoordinatesAngles(i, dX, dY, dZ, dAzimuth, dElevation, dRoll);
+            double dX, dY, dZ, quat[4];
+            bird.getCoordinatesQuaternion(i, dX, dY, dZ, quat);
 
             t.frame_id_ = base_frame_id;
             t.child_frame_id_ = target_frame_ids[i];
             t.setOrigin(tf::Vector3(dX, dY, dZ));
-            t.setRotation(tf::createQuaternionFromRPY(deg2rad(dAzimuth), deg2rad(dElevation), deg2rad(dRoll)));
+            t.setRotation(tf::Quaternion(-quat[1], -quat[2], -quat[3], quat[0]));
 
             if (root_frame_id == target_frame_ids[i]) {
                 t.frame_id_ = target_frame_ids[i];

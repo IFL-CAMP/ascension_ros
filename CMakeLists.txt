@@ -12,7 +12,7 @@ include(ExternalProject)
 
 ExternalProject_Add(act3dg
     GIT_REPOSITORY https://github.com/marcoesposito1988/ATC3DGTracker.git
-    GIT_TAG 130b205415213b9b96f71302bd5ecc4f60a8147c
+    GIT_TAG fe2dad56dae6f543550c58d2dfc5bf011535b816
     PREFIX "${CMAKE_CURRENT_BINARY_DIR}"
     # Disable install step
     INSTALL_COMMAND ""
