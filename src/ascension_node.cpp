@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 
             t.frame_id_ = base_frame_id;
             t.child_frame_id_ = target_frame_ids[i];
-            t.setOrigin(tf::Vector3(dX/100, dY/100, dZ/100));
+            t.setOrigin(tf::Vector3(dX, dY, dZ));
             t.setRotation(tf::createQuaternionFromRPY(deg2rad(dAzimuth), deg2rad(dElevation), deg2rad(dRoll)));
 
             if (root_frame_id == target_frame_ids[i]) {
