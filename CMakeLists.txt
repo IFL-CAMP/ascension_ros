@@ -6,8 +6,6 @@ find_package(catkin REQUIRED  COMPONENTS roscpp tf geometry_msgs)
 
 # build ACT3DG library
 
-message("This package builds a library from GitHub on the fly. Might require re-running catkin build a couple of times.")
-
 include(ExternalProject)
 
 ExternalProject_Add(act3dg
@@ -43,6 +41,8 @@ target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
   ${ATC3DG_LIBRARY}
 )
+
+add_dependencies(${PROJECT_NAME}_node act3dg)
 
 #############
 ## Install ##
