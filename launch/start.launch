@@ -1,7 +1,7 @@
 <launch>
     <arg name="product_id" default="drivebay2" />
-    <arg name="base_frame_id" default="base" />
-    <arg name="root_frame_id" default="base" />
+    <arg name="base_frame_id" default="ascension_origin" />
+    <arg name="root_frame_id" default="ascension_origin" />
 
     <node name="ascension_node" pkg="ascension" type="ascension_node" output="screen">
         <param name="product_id" value="$(arg product_id)"/>
