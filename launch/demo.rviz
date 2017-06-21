@@ -53,9 +53,11 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base:
+        ascension_origin:
           Value: true
         target1:
+          Value: true
+        target2:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -63,15 +65,17 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base:
+        ascension_origin:
           target1:
+            {}
+          target2:
             {}
       Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base
+    Fixed Frame: ascension_origin
     Frame Rate: 30
   Name: root
   Tools:
