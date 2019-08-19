@@ -13,14 +13,14 @@ Clone the repo to your src directory in the catkin workspace
 
 Build the project through `catkin_make` or `catkin build`
 
-# Copy USB permissions file
+## Copy USB permissions file
 
 Copy the "99-libusb.rules" file into the path "/etc/udev/rules.d/" and reload the udev rules:
 ```bash
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
-# Start the system
+## Start the system
 
 Start ROS through terminal: 
 ```bash
